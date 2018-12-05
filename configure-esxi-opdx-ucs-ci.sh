@@ -150,8 +150,6 @@ error_check "Invalid Key Name: hyperthreadingMitigation" \
 
 # Increase the number of allowed NFS data stores (defaults to 8 NFS data stores)
 # https://kb.vmware.com/s/article/1020652, https://kb.vmware.com/s/article/2239
-
-### Is there a downside to increasing this?
 _esxcli system settings advanced set -o "/NFS/MaxVolumes" -i 256
 
 _esxcli system syslog config set --loghost=udp://rsyslog.ops.puppetlabs.net:514

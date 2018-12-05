@@ -148,8 +148,6 @@ _esxcli system settings kernel set -s hyperthreadingMitigation -v TRUE
 
 # Increase the number of allowed NFS data stores (defaults to 8 NFS data stores)
 # https://kb.vmware.com/s/article/1020652, https://kb.vmware.com/s/article/2239
-
-### Is there a downside to increasing this?
 _esxcli system settings advanced set -o "/NFS/MaxVolumes" -i 256
 
 _esxcli system syslog config set --loghost=udp://rsyslog.ops.puppetlabs.net:514
@@ -179,20 +177,10 @@ _esxcli network ip interface set --mtu 9000 -i vmk11
 _esxcli network ip interface ipv4 set -i vmk11 -t dhcp
 _esxcli network ip interface ipv6 set -i vmk11 --enable-dhcpv6 1
 
-# VM port groups. Leaving most out until we've determined we need them.
+# VM port groups.
 portgroup_add vSwitch0 delivery 77
 portgroup_add vSwitch0 delivery_b 84
-# portgroup_add vSwitch0 dmz_support 93
-# portgroup_add vSwitch0 echonet-ops 86
-# portgroup_add vSwitch0 eng 98
-# portgroup_add vSwitch0 esxi 95
-# portgroup_add vSwitch0 external 11
-# portgroup_add vSwitch0 it2 2
-# portgroup_add vSwitch0 ldap-dmz 302
-# portgroup_add vSwitch0 netflow 200
-# portgroup_add vSwitch0 oob 88
 portgroup_add vSwitch0 ops 22
-# portgroup_add vSwitch0 phones 33
 
 # Set up storage
 error_check "tintri-data-opdx-1-1.ops.puppetlabs.net:/tintri/general1 is already exported by a volume with the name tintri-opdx-1-general1" \

@@ -157,6 +157,10 @@ _esxcli system syslog reload
 _esxcli network firewall ruleset set --ruleset-id=syslog --enabled=true
 _esxcli network firewall refresh
 
+# VMotion should only be tagged on vmk10
+error_check "Error removing tag VMotion from interface .* Vmknic is not tagged with .*" \
+  esxcli network ip interface tag remove -i vmk0 -t VMotion
+
 add_vswitch vSwitch0
 error_check "Sysinfo error: Not found" \
   esxcli network vswitch standard portgroup remove -p "VM Network" -v vSwitch0

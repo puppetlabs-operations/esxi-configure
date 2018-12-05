@@ -166,6 +166,8 @@ error_check "Sysinfo error: Not found" \
 # Private network
 portgroup_add vSwitch0 private 97 # vmw
 network_interface_add vmk10 private
+# We should change this to 9000 at some point
+_esxcli network ip interface set --mtu 1500 -i vmk10
 _esxcli network ip interface ipv4 set -i vmk10 -t dhcp
 _esxcli network ip interface ipv6 set -i vmk10 --enable-dhcpv6 1
 network_interface_tag vmk10 faultToleranceLogging VMotion

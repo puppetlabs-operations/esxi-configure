@@ -180,6 +180,8 @@ _esxcli network vswitch standard policy failover set -v vSwitch1 -a vmnic2
 error_check '^A portgroup with the name .* already exists$' \
   esxcli network vswitch standard portgroup add -p private -v vSwitch1
 _esxcli network ip interface add --interface-name vmk1 --portgroup-name private
+# We should change this to 9000 at some point
+_esxcli network ip interface set --mtu 1500 -i vmk1
 _esxcli network ip interface ipv4 set -i vmk1 -t dhcp
 _esxcli network ip interface ipv6 set -i vmk1 --enable-dhcpv6 1
 network_interface_tag vmk1 faultToleranceLogging VMotion

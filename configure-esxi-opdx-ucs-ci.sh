@@ -142,11 +142,12 @@ EOF
 
 _esxcli system settings advanced set -o /UserVars/SuppressShellWarning -i 1
 
-
-# Enable 'L1 Terminal Fault' vulnerability mitigation
+# Disable 'L1 Terminal Fault' vulnerability mitigation because it's too slow.
 # https://rakhesh.com/virtualization/what-is-esx-problem-hyperthreading-unmitigated/
+# Requires reboot.
 error_check "Invalid Key Name: hyperthreadingMitigation" \
-  esxcli system settings kernel set -s hyperthreadingMitigation -v TRUE
+  esxcli system settings kernel set -s hyperthreadingMitigation -v FALSE
+esxcli system settings advanced set -o /UserVars/SuppressHyperthreadWarning -i 1
 
 # Increase the number of allowed NFS data stores (defaults to 8 NFS data stores)
 # https://kb.vmware.com/s/article/1020652, https://kb.vmware.com/s/article/2239

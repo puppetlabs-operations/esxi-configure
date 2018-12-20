@@ -180,7 +180,7 @@ vswitch_uplink_add vSwitch1 vmnic2
 _esxcli network vswitch standard policy failover set -v vSwitch1 -a vmnic2
 error_check '^A portgroup with the name .* already exists$' \
   esxcli network vswitch standard portgroup add -p private -v vSwitch1
-_esxcli network ip interface add --interface-name vmk1 --portgroup-name private
+network_interface_add vmk1 private
 # We should change this to 9000 at some point
 _esxcli network ip interface set --mtu 1500 -i vmk1
 _esxcli network ip interface ipv4 set -i vmk1 -t dhcp
@@ -193,15 +193,15 @@ vswitch_uplink_add vSwitch2 vmnic3
 _esxcli network vswitch standard policy failover set -v vSwitch2 -a vmnic3
 _esxcli network vswitch standard set --mtu=9000 -v vSwitch2
 portgroup_add vSwitch2 storage1 92
-_esxcli network ip interface add --interface-name vmk2 --portgroup-name storage1
+network_interface_add vmk2 storage1
 _esxcli network ip interface set --mtu 9000 -i vmk2
 _esxcli network ip interface ipv4 set -i vmk2 -t dhcp
 _esxcli network ip interface ipv6 set -i vmk2 --enable-dhcpv6 1
 portgroup_add vSwitch2 storage2 96
-esxcli network ip interface add --interface-name vmk3 --portgroup-name storage2
-esxcli network ip interface set --mtu 9000 -i vmk3
-esxcli network ip interface ipv4 set -i vmk3 -t dhcp
-esxcli network ip interface ipv6 set -i vmk3 --enable-dhcpv6 1
+network_interface_add vmk3 storage2
+_esxcli network ip interface set --mtu 9000 -i vmk3
+_esxcli network ip interface ipv4 set -i vmk3 -t dhcp
+_esxcli network ip interface ipv6 set -i vmk3 --enable-dhcpv6 1
 
 vswitch_add vSwitch3
 vswitch_uplink_add vSwitch3 vmnic4
